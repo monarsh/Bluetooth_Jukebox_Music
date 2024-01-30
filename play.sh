@@ -15,7 +15,7 @@ play() {
 	systemctl --user stop jukebox-playAll.service
 	killall ffplay > /dev/null 2>&1
 
-	ffplay -loglevel quiet -loop 0 -nodisp "${SONG[(($1))]}" > /dev/null 2>&1 &
+	ffplay -loglevel quiet -loop 0 -nodisp "${SONG[$1]}" > /dev/null 2>&1 &
 }
 
 playAll() {
