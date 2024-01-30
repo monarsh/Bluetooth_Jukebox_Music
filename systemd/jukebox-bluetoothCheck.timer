@@ -1,0 +1,10 @@
+[Unit]
+Description=Jukebox Bluetooth Check Timer
+Requires=jukebox-bluetoothCheck.service
+
+[Timer]
+Unit=jukebox-bluetoothCheck.service
+OnCalendar=*-*-* *:*:00
+
+[Install]
+WantedBy=timers.target

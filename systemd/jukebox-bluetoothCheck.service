@@ -1,0 +1,10 @@
+[Unit]
+Description=Jukebox Bluetooth Check
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/user/scripts/jukebox
+ExecStart=/usr/bin/bash bluetooth.sh -s
+
+[Install]
+WantedBy=default.target

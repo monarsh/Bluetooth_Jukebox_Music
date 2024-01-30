@@ -1,0 +1,11 @@
+[Unit]
+Description=Jukebox Play All
+
+[Service]
+Type=simple
+WorkingDirectory=/home/user/scripts/jukebox
+ExecStart=/usr/bin/bash play.sh -a
+Restart=always
+
+[Install]
+WantedBy=default.target
