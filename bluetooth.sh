@@ -35,9 +35,9 @@ checkStatus() {
 	elif [ "$STS" = "no" ]; then
 		echo "Disconnected" > /tmp/BluetoothStatus
 		echo "Bluetooth device $BL_ID ($BL_NAME) not found."
-#	else
-#		echo "Disconnected" > /tmp/BluetoothStatus
-#		echo "Bluetooth device $BL_ID ($BL_NAME) not found."
+	else
+		echo "Disconnected" > /tmp/BluetoothStatus
+		echo "Bluetooth device $BL_ID ($BL_NAME) not found."
 	fi
 }
 
