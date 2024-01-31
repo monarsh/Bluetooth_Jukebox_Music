@@ -4,6 +4,15 @@
 BL_ID=$(echo $BLUETOOTH_DEVICE | cut -f 1 -d ",")
 BL_NAME=$(echo $BLUETOOTH_DEVICE | cut -f 2 -d ",")
 
+init() {
+	STS=$(bluetoothctl info $BL_ID | grep "Connected:" | awk '{ print $2 }')
+
+	if [ "$STS" = "no" ]; then
+		bluetoothctl -- default-agent > /dev/null 2>&1
+		bluetoothctl -- scan on > /dev/null 2>&1
+	fi
+}
+
 connection() {
 	if [ "$1" = "-c" ]; then
 		bluetoothctl -- discoverable on > /dev/null 2>&1
@@ -44,7 +53,9 @@ checkStatus() {
 	fi
 }
 
-if [ "$1" = "-c" ]; then
+if [ "$1" = "-i" ]; then
+        init
+elif [ "$1" = "-c" ]; then
 	connection "-c"
 elif [ "$1" = "-d" ]; then
 	connection "-d"

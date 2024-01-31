@@ -3,7 +3,7 @@ Description=Jukebox
 
 [Service]
 Type=simple
-WorkingDirectory=/home/user/scripts/jukebox
+WorkingDirectory=/home/pi/jukebox
 ExecStart=/usr/bin/python3 remote.py
 Restart=always
 
