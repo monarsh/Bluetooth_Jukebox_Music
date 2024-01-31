@@ -9,12 +9,11 @@ bufSize = 32
 exec(open(os.getcwd() + "/jukebox.conf").read())
 musicDir = MUSIC_DIRECTORY
 
-cmd = 'echo "1" > /tmp/PlayNo; ' + os.getcwd() + "/bluetooth.sh -c"
-sts = subprocess.run([cmd], shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
+cmd = 'echo "1" > /tmp/PlayNo'
+subprocess.run([cmd], shell=True)
 
-f = open("/tmp/BluetoothStatus", "w")
-f.write(sts + "\n")
-f.close()
+#cmd = os.getcwd() + "/bluetooth.sh -c"
+#subprocess.run([cmd], shell=True)
 
 UDPServerSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 UDPServerSocket.bind((localIP, localPort))
@@ -29,20 +28,16 @@ while(True):
 		sts = f.readline().strip()
 		f.close()
 
-		if sts == "Disconnected":
-			cmd = os.getcwd() + "/bluetooth.sh -c"
-			sts = subprocess.run([cmd], shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
-			UDPServerSocket.sendto(str.encode(sts), sourceIP)
-			f = open("/tmp/BluetoothStatus", "w")
-			f.write(sts + "\n")
-			f.close()
-		elif sts == "Connected":
+		if sts == "Connected":
 			cmd = os.getcwd() + "/bluetooth.sh -d"
 			sts = subprocess.run([cmd], shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
 			UDPServerSocket.sendto(str.encode(sts), sourceIP)
-			f = open("/tmp/BluetoothStatus", "w")
-			f.write(sts + "\n")
-			f.close()
+		elif sts == "Disconnected":
+			cmd = os.getcwd() + "/bluetooth.sh -c"
+			sts = subprocess.run([cmd], shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
+			UDPServerSocket.sendto(str.encode(sts), sourceIP)
+		else:
+			UDPServerSocket.sendto(str.encode("Disconnected"), sourceIP)
 	elif data == ">":
 		f = open("/tmp/PlayNo", "r")
 		no = int(f.readline().strip())
