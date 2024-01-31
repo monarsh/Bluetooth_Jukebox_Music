@@ -12,8 +12,8 @@ musicDir = MUSIC_DIRECTORY
 cmd = 'echo "1" > /tmp/PlayNo'
 subprocess.run([cmd], shell=True)
 
-#cmd = os.getcwd() + "/bluetooth.sh -c"
-#subprocess.run([cmd], shell=True)
+cmd = os.getcwd() + "/bluetooth.sh -c"
+subprocess.run([cmd], shell=True)
 
 UDPServerSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 UDPServerSocket.bind((localIP, localPort))

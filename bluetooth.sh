@@ -18,10 +18,13 @@ connection() {
 	STS=$(bluetoothctl info $BL_ID | grep "Connected:" | awk '{ print $2 }')
 
 	if [ "$STS" = "yes" ]; then
+		echo "Connected" > /tmp/BluetoothStatus
 		echo "Connected"
 	elif [ "$STS" = "no" ]; then
+		echo "Disconnected" > /tmp/BluetoothStatus
 		echo "Disconnected"
 	else
+		echo "Disconnected" > /tmp/BluetoothStatus
 		echo "Disconnected"
 	fi
 }
